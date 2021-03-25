@@ -22,6 +22,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
 
 #define EEPROM_24LC32A_ADDRESS 0x50
 #define EEPROM_24LC32A_MAX_ADDRESS 0x7FFF
