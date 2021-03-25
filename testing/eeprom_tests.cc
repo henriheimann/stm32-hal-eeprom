@@ -20,7 +20,7 @@ TEST(stm32_hal_eeprom, test_eeprom_read_bytes_success)
 
 	eeprom_handle_t handle = { &i2c, 0x20, 32, 0xff };
 
-	uint8_t buffer[4] = {0x11, 0x22, 0x33, 0x44};
+	uint8_t buffer[4];
 
 	mock().expectOneCall("HAL_I2C_Mem_Read")
 		.withParameter("hi2c", &i2c)
@@ -104,5 +104,40 @@ TEST(stm32_hal_eeprom, test_eeprom_write_byte_failure_write_timeout)
 	bool result = eeprom_write_byte(&handle, 0xf0, 0xa4);
 
 	CHECK_FALSE_TEXT(result, "Write should be unsuccessful");
+	mock().checkExpectations();
+}
+
+TEST(stm32_hal_eeprom, test_eeprom_write_bytes_success)
+{
+	I2C_HandleTypeDef i2c;
+
+	eeprom_handle_t handle = { &i2c, 0x20, 2, 0xff };
+
+	mock().expectOneCall("HAL_I2C_Mem_Write")
+			.withParameter("MemAddress", 0x01)
+			.withParameter("Size", 1)
+			.ignoreOtherParameters()
+			.andReturnValue(HAL_OK);
+	mock().expectOneCall("HAL_I2C_Mem_Write")
+			.withParameter("MemAddress", 0x02)
+			.withParameter("Size", 2)
+			.ignoreOtherParameters()
+			.andReturnValue(HAL_OK);
+	mock().expectOneCall("HAL_I2C_Mem_Write")
+			.withParameter("MemAddress", 0x04)
+			.withParameter("Size", 2)
+			.ignoreOtherParameters()
+			.andReturnValue(HAL_OK);
+
+	mock().expectNCalls(3, "HAL_GetTick").andReturnValue(100L);
+	mock().expectNCalls(3, "HAL_I2C_Master_Transmit")
+			.ignoreOtherParameters()
+			.andReturnValue(HAL_OK);
+
+	uint8_t buffer[5] = {0x11, 0x22, 0x33, 0x44, 0x55};
+
+	bool result = eeprom_write_bytes(&handle, 0x01, buffer, sizeof(buffer));
+
+	CHECK_TEXT(result, "Write should be successful");
 	mock().checkExpectations();
 }
