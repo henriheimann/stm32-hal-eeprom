@@ -1,11 +1,11 @@
-name: test
+name: Tests
 
 on:
   push:
     branches: [ master ]
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
     container: henriheimann/cpputest-cmake:v4.0
     steps:

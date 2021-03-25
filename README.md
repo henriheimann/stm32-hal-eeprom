@@ -2,7 +2,7 @@
 Generic STM32 HAL driver for EEPROM devices.
 
 [![Software License: MIT](https://img.shields.io/badge/Software_License-MIT-blue)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/henriheimann/stm32-hal-eeprom/workflows/test/badge.svg)](https://github.com/henriheimann/stm32-hal-eeprom/actions)
+[![Build Status](https://github.com/henriheimann/stm32-hal-eeprom/workflows/tests/badge.svg)](https://github.com/henriheimann/stm32-hal-eeprom/actions)
 
 
 ## Usage
