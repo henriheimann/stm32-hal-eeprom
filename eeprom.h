@@ -14,6 +14,8 @@
     defined (STM32L496xx) || defined (STM32L4A6xx) || \
     defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
 #include "stm32l4xx_hal.h"
+#elif defined (TESTING)
+#include "testing/mock_hal.h"
 #else
 #error Platform not implemented
 #endif
