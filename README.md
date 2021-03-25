@@ -40,5 +40,5 @@ printf("Read back values from EEPROM: %02x %02x %02x %02x\n\r", buffer[0], buffe
 ```
 
 ## Supported Platforms
-STM32L0 and STM32L4 microcontrollers are supported. Address, memory size and page size values for the 24LC32A EEPROM are predefined.
+STM32L0, STM32L4 and STM32F4 microcontrollers are supported. Address, memory size and page size values for the 24LC32A EEPROM are predefined.
 The HAL header includes for other microcontrollers and defines for new EEPROM devices may be added in `eeprom.h`.
