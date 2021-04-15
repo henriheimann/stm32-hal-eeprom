@@ -25,7 +25,7 @@ eeprom_handle_t handle = {
     .max_address = EEPROM_24LC32A_MAX_ADDRESS
 };
 
-byte[] buffer = {0xaa, 0x12, 0xbb, 0x34};
+uint8_t[] buffer = {0xaa, 0x12, 0xbb, 0x34};
 
 // Write bytes to the EEPROM pagewise.
 if (!eeprom_write_bytes(&handle, 0x000, buffer, sizeof(buffer))) {
@@ -35,7 +35,7 @@ if (!eeprom_write_bytes(&handle, 0x000, buffer, sizeof(buffer))) {
 if (!eeprom_read_bytes(&handle, 0x000, buffer, sizeof(buffer))) {
     printf("EEPROM read failed\n\r");
 } else {
-printf("Read back values from EEPROM: %02x %02x %02x %02x\n\r", buffer[0], buffer[1], buffer[2], buffer[3]);	
+    printf("Read back values from EEPROM: %02x %02x %02x %02x\n\r", buffer[0], buffer[1], buffer[2], buffer[3]);	
 }
 ```
 
