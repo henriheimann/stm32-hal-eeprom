@@ -31,9 +31,22 @@
 #include <stdint.h>
 #include <stddef.h>
 
+typedef enum {
+	EEPROM_ADDRESSING_TYPE_16BIT,
+	EEPROM_ADDRESSING_TYPE_8BIT_1BIT_OVERFLOW
+} eeprom_addressing_type_t;
+
 #define EEPROM_24LC32A_ADDRESS 0x50
+#define EEPROM_CAV24C04_ADDRESS 0x50
+
 #define EEPROM_24LC32A_MAX_ADDRESS 0x7FFF
+#define EEPROM_CAV24C04_MAX_ADDRESS 0x0FFF
+
 #define EEPROM_24LC32A_PAGE_SIZE 32
+#define EEPROM_CAV24C04_PAGE_SIZE 16
+
+#define EEPROM_24LC32A_ADDRESSING_TYPE EEPROM_ADDRESSING_TYPE_16BIT
+#define EEPROM_CAV24C04_ADDRESSING_TYPE EEPROM_ADDRESSING_TYPE_8BIT_1BIT_OVERFLOW
 
 /**
  * The timeout used in all I2C transmits.
@@ -73,6 +86,11 @@ typedef struct {
 	 * The maximum address of this EEPROM.
 	 */
 	uint16_t max_address;
+
+	/**
+	 * The addressing type of this EEPROM.
+	 */
+	eeprom_addressing_type_t addressing_type;
 
 } eeprom_handle_t;
 
