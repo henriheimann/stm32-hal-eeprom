@@ -17,4 +17,4 @@ jobs:
         run: mkdir testing/build && cd testing/build && cmake .. && make
 
       - name: Test
-        run: ./testing/build/run_all_tests
+        run: ./testing/build/run-all-tests

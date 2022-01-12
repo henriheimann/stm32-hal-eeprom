@@ -1,12 +1,5 @@
-project (stm32-hal-eeprom_tests)
-
 cmake_minimum_required(VERSION 3.10)
-
-# Set TESTING definition for actual source code
-add_definitions(-DTESTING)
-
-# Add library under test
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_BINARY_DIR}/eeprom)
+project(stm32-hal-eeprom-tests)
 
 # Look for CppUTest
 if(DEFINED ENV{CPPUTEST_HOME})
@@ -22,5 +15,6 @@ else()
     find_package(CppUTest CONFIG REQUIRED)
 endif()
 
-add_executable(run_all_tests test_main.cc eeprom_tests.cc mock_hal.cc mock_hal.h)
-target_link_libraries(run_all_tests PRIVATE stm32-hal-eeprom CppUTest CppUTestExt)
+add_executable(run-all-tests test_main.cc eeprom_tests.cc mock_hal.cc mock_hal.h ../eeprom.c ../eeprom.h)
+target_link_libraries(run-all-tests PRIVATE CppUTest CppUTestExt)
+target_compile_definitions(run-all-tests PRIVATE -DTESTING)

@@ -22,7 +22,8 @@ eeprom_handle_t handle = {
     .i2c_handle = &hi2c1,
     .device_address = EEPROM_24LC32A_ADDRESS,
     .page_size = EEPROM_24LC32A_PAGE_SIZE,
-    .max_address = EEPROM_24LC32A_MAX_ADDRESS
+    .max_address = EEPROM_24LC32A_MAX_ADDRESS,
+    .addressing_type = EEPROM_ADDRESSING_TYPE_16BIT
 };
 
 uint8_t[] buffer = {0xaa, 0x12, 0xbb, 0x34};
