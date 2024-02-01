@@ -6,6 +6,7 @@ static uint8_t get_mem_address_size(eeprom_handle_t *handle)
 {
 	switch (handle->addressing_type){
 		case EEPROM_ADDRESSING_TYPE_8BIT_1BIT_OVERFLOW:
+		case EEPROM_ADDRESSING_TYPE_8BIT_3BIT_OVERFLOW:
 			return 1;
 		default:
 			return 2;
@@ -16,6 +17,7 @@ static uint16_t get_mem_address(eeprom_handle_t *handle, uint16_t address)
 {
 	switch (handle->addressing_type){
 		case EEPROM_ADDRESSING_TYPE_8BIT_1BIT_OVERFLOW:
+		case EEPROM_ADDRESSING_TYPE_8BIT_3BIT_OVERFLOW:
 			return address & 0xff;
 		default:
 			return address;
@@ -28,6 +30,8 @@ static uint8_t build_dev_address(eeprom_handle_t *handle, uint16_t read_write_me
 
 	if (handle->addressing_type == EEPROM_ADDRESSING_TYPE_8BIT_1BIT_OVERFLOW) {
 		address_overflow = ((read_write_memory_address >> 8) & 0x1) << 1u;
+	}else if (handle->addressing_type == EEPROM_ADDRESSING_TYPE_8BIT_3BIT_OVERFLOW) {
+		address_overflow = ((read_write_memory_address >> 8) & 0x3) << 1u;
 	}
 
 	return (handle->device_address << 1u) | address_overflow;
