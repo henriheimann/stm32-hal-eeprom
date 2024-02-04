@@ -33,7 +33,6 @@ static uint8_t build_dev_address(eeprom_handle_t *handle, uint16_t read_write_me
 	}else if (handle->addressing_type == EEPROM_ADDRESSING_TYPE_8BIT_3BIT_OVERFLOW) {
 		address_overflow = ((read_write_memory_address >> 8) & 0x3) << 1u;
 	}
-
 	return (handle->device_address << 1u) | address_overflow;
 }
 
@@ -65,7 +64,7 @@ bool eeprom_write_byte(eeprom_handle_t *handle, uint16_t address, uint8_t value)
 
 bool eeprom_write_bytes(eeprom_handle_t *handle, uint16_t address, uint8_t *source, size_t count)
 {
-	assert(address + count <= handle->max_address);
+	assert(address + count <= handle->max_address + 1);
 
 	uint16_t current_address = address;
 	uint8_t *source_ptr = source;
@@ -96,7 +95,7 @@ bool eeprom_write_bytes(eeprom_handle_t *handle, uint16_t address, uint8_t *sour
 
 bool eeprom_read_bytes(eeprom_handle_t *handle, uint16_t address, uint8_t *dest, size_t count)
 {
-	assert(address + count <= handle->max_address);
+	assert(address + count <= handle->max_address + 1);
 
 	return HAL_I2C_Mem_Read(handle->i2c_handle, build_dev_address(handle, address), get_mem_address(handle, address),
 							get_mem_address_size(handle), dest, count, EEPROM_I2C_TIMEOUT) == HAL_OK;
